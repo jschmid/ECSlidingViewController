@@ -109,6 +109,7 @@
     CGFloat _anchorRightPeekAmount;
     CGFloat _anchorRightRevealAmount;
     UIPanGestureRecognizer *_panGesture;
+    UIScreenEdgePanGestureRecognizer *_edgeGesture;
     UITapGestureRecognizer *_resetTapGesture;
                                                            
     @protected
@@ -287,6 +288,11 @@
  The gesture that triggers the default interactive transition for a horizontal swipe. This is typically added to the top view or one of the top view's subviews.
  */
 @property (nonatomic, strong, readonly) UIPanGestureRecognizer *panGesture;
+
+/**
+ The gesture that triggers an interactive transition for a horizontal swipe. It only works if the gesture starts from the dge of the screen. This is typically added to the top view or one of the top view's subviews.
+ */
+@property (nonatomic, strong, readonly) UIScreenEdgePanGestureRecognizer *edgeGesture;
 
 /**
  The gesture that triggers the top view to reset. Useful for resetting the top view when in the anchored position.

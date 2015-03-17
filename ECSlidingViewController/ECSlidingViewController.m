@@ -411,10 +411,19 @@
 
 - (UIPanGestureRecognizer *)panGesture {
     if (_panGesture) return _panGesture;
-    
+
     _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(detectPanGestureRecognizer:)];
-    
+
     return _panGesture;
+}
+
+- (UIScreenEdgePanGestureRecognizer *)edgeGesture {
+    if (_edgeGesture) return _edgeGesture;
+
+    _edgeGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(detectEdgeGestureRecognizer:)];
+    _edgeGesture.edges = UIRectEdgeLeft;
+
+    return _edgeGesture;
 }
 
 #pragma mark - Public
@@ -750,7 +759,17 @@
         [self.view endEditing:YES];
         _isInteractive = YES;
     }
-    
+
+    [self.defaultInteractiveTransition updateTopViewHorizontalCenterWithRecognizer:recognizer];
+    _isInteractive = NO;
+}
+
+- (void)detectEdgeGestureRecognizer:(UIScreenEdgePanGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        [self.view endEditing:YES];
+        _isInteractive = YES;
+    }
+
     [self.defaultInteractiveTransition updateTopViewHorizontalCenterWithRecognizer:recognizer];
     _isInteractive = NO;
 }
